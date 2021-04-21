@@ -1,0 +1,34 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<nav th:fragment="header" class="navbar bg-info">
+    <a href="/" class="nav-brand m-2 col-md-">SHop</a>
+    <div class="dropdown show m-2 col-md-">
+        <a class="btn btn-secondary dropdown-toggle " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown link
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+    </div>
+    <form class="form-inline m-2 col">
+        <div class="form-group">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+        </div>
+    </form>
+    <div class="m-2 col-sm-">basket</div>
+    <div class="m-2 col-sm-">compare</div>
+    <div sec:authorize="hasRole('ROLE_ADMIN')" class="m-2 col-sm-"><a href="/add">Добавить товар</a></div>
+    <h1 sec:authorize="isAuthenticated()" th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+    <form sec:authorize="isAuthenticated()" class="form-inline my-2 my-lg-0"  method="post" th:action="@{/logout}">
+        <button  class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">Выйти</button>
+    </form>
+
+    <form sec:authorize="isAnonymous()" class="form-inline my-2 my-lg-0"  method="get" th:action="@{/login}">
+        <button  class="btn btn-outline my-2 my-sm-0 btn-sm" type="submit">Войти</button>
+    </form>
+
+</nav>
+
