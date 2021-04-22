@@ -36,19 +36,18 @@ public class AddController {
     public String addPost(@RequestParam String name, @RequestParam String devModel, @RequestParam("file") MultipartFile file,
                           @RequestParam String characteristics, @RequestParam String price, Model model) throws IOException {
         if(name!=null && devModel!=null && file!=null && characteristics!=null && price!=null){
-            File fPath = new File(uploadPath);
-            if(!fPath.exists()){
-                fPath.mkdir();
-            }
             Device dev = new Device(name,devModel,characteristics,price);
+            File uploadDir = new File(uploadPath);
+            if(!uploadDir.exists()){
+                uploadDir.mkdir();
+            }
+            String s = uploadPath+"/"+file.getOriginalFilename();
+            dev.setImage(file.getOriginalFilename());
+            file.transferTo(new File(s));
 
-            //file.transferTo(new File(resFileName));
-            byte[] bytes = file.getBytes();
-            Path path = Paths.get(uploadPath + file.getOriginalFilename());
-            Files.write(path, bytes);
-            dev.setImage("images/"+ file.getOriginalFilename());
             deviceRepo.save(dev);
+            return "redirect:/device/"+dev.getId();
         }
-        return "add_product";
+        return "home";
     }
 }

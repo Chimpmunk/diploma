@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,24 +12,19 @@
 
 </head>
 <body>
-
 <header th:insert="blocks/header :: header"></header>
 
-<div class="d-flex p-2 justify-content-around">
-    <div class="mt-2">
-        <h3 th:text="${d.name}"/>
-        <h3 th:text="${d.devModel}"/>
 
-        <img th:src="'/img/'+${d.image}" th:alt="${d.name}+' '+${d.devModel}+' image'">
-        <h3 th:text="'Цена: '+${d.price}+ '&#8372'"/>
-        <p th:text="${d.characteristics}"/>
-
-        <form sec:authorize="hasRole('ROLE_ADMIN')" th:action="'/device/delete/'+${d.id}" method="get">
-            <button class="btn btn-warning" type="submit">Удалить</button>
-        </form>
-        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="'/device/edit/'+${d.id}" >Редактировать</a>
-    </div>
+<div class="container mt-5">
+    <form th:action="'/device/edit'+${d.id}" method="post" enctype="multipart/form-data">
+        <input type="text" th:value="${d.name}" name="name" placeholder="Введите производителя" class="form-control"><br>
+        <input type="text" th:value="${d.devModel}" name="devModel" placeholder="Введите модель" class="form-control"><br>
+        <input type="text" th:value="${d.price}" name="price" placeholder="Введите цену" class="form-control"><br>
+        <textarea name="characteristics" placeholder="Введите характеристики" class="form-control" th:text="${d.characteristics}"/><br>
+        <button type="submit" class="btn btn-success">Обновить</button>
+    </form>
 </div>
+
 
 </body>
 </html>

@@ -22,7 +22,7 @@
             <h3 th:text="${el.name}"/>
             <h3 th:text="${el.devModel}"/>
 
-            <img th:src="${el.image}" th:alt="${el.name}+' '+${el.devModel}+' image'">
+            <img th:src="'/img/'+${el.image}" th:alt="${el.name}+' '+${el.devModel}+' image'">
             <h3 th:text="'Цена: '+${el.price}+ '&#8372'"/>
             <p th:text="${el.characteristics}"/>
             <a th:href="'/device/'+ ${el.id}">подробнее</a>
