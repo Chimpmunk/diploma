@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SHop</title>
+    <link rel="stylesheet" href="/static/style/rating.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -29,6 +30,35 @@
             <button class="btn btn-warning" type="submit">Удалить</button>
         </form>
         <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="'/device/edit/'+${d.id}" >Редактировать</a>
+
+        <form sec:authorize="isAuthenticated()" th:action="'/device/review/'+${d.id}" method="post">
+            <div class="rating-area">
+                <input type="radio" id="5" name="rating" value="5">
+                <label for="5" title="Оценка «5»"></label>
+
+                <input type="radio" id="4" name="rating" value="4">
+                <label for="4" title="Оценка «4»"></label>
+
+                <input type="radio" id="3" name="rating" value="3">
+                <label for="3" title="Оценка «3»"></label>
+
+                <input type="radio" id="2" name="rating" value="2">
+                <label for="2" title="Оценка «2»"></label>
+
+                <input type="radio" id="1" name="rating" value="1">
+                <label for="1" title="Оценка «1»"></label>
+            </div>
+            <textarea name="comment" placeholder="Введите комментарий" class="form-control"></textarea>
+            <input type="submit" class="btn btn-success">
+        </form>
+        <div class="d-flex p-2 justify-content-around">
+            <div th:each="el : ${reviews}" class="mt-2">
+                    <h3 th:text="${el.user.username}"/>
+                    <h3 th:text="${el.rating}"/>
+
+                    <p th:text="${el.text}"/>
+            </div>
+        </div>
     </div>
 </div>
 

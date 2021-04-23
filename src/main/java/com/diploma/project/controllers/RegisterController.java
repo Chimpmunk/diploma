@@ -30,7 +30,7 @@ public class RegisterController {
     public String regPost(@RequestParam String username, @RequestParam String firstName, @RequestParam String password,
                           @RequestParam String lastName, @RequestParam String email, Model model) {
 
-        User usr= new User(username,firstName,lastName,email,passwordEncode().encode(password),"ADMIN");
+        User usr= new User(username,firstName,lastName,email,passwordEncode().encode(password),"USER");
         usr.setActive(true);
         userRepo.save(usr);
         model.addAttribute("txt", "Вы зарегистрированы");
