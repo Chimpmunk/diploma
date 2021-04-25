@@ -12,16 +12,19 @@
             <a class="dropdown-item" href="#">Something else here</a>
         </div>
     </div>
-    <form class="form-inline m-2 col">
+    <form class="form-inline m-2 col" method="post" action="/search">
         <div class="form-group">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control mr-sm-2" type="search" name="req" id="req" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
         </div>
     </form>
     <div class="m-2 col-sm-">basket</div>
     <div class="m-2 col-sm-">compare</div>
     <div sec:authorize="hasRole('ROLE_ADMIN')" class="m-2 col-sm-"><a href="/add">Добавить товар</a></div>
-    <h1 sec:authorize="isAuthenticated()" th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+    <a sec:authorize="isAuthenticated()" href="/profile">
+        <h1 sec:authorize="isAuthenticated()" th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+    </a>
+
     <form sec:authorize="isAuthenticated()" class="form-inline my-2 my-lg-0"  method="post" th:action="@{/logout}">
         <button  class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">Выйти</button>
     </form>

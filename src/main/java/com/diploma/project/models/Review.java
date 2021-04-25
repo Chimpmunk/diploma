@@ -12,11 +12,14 @@ public class Review {
     @ManyToOne(fetch = FetchType.EAGER)
     private Device device;
 
+
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
+    @Column(nullable = false)
     private double rating;
 
+    @Column(nullable = false)
     private String text;
 
     public Review(){};
