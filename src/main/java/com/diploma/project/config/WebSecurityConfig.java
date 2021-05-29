@@ -4,18 +4,12 @@ import com.diploma.project.models.UserPrincipalDetaillsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -27,11 +21,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userPrincipalDetaillsService).passwordEncoder(passwordEncoder());
-                /*
-                .inMemoryAuthentication()
-                .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN")
-                .and()
-                .withUser("buyer").password(passwordEncoder().encode("123")).roles("USER");*/
     }
 
     @Override
@@ -39,13 +28,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/", "/search").permitAll()
                 .antMatchers("/login").not().authenticated()
                 .antMatchers("/registration").not().authenticated()
-                .antMatchers("/profile").authenticated()
+                .antMatchers("/profile", "/device/review/**").authenticated()
                 .antMatchers("/add").hasRole("ADMIN")
                 .antMatchers("/device/edit/**").hasRole("ADMIN")
                 .antMatchers("/device/delete/**").hasRole("ADMIN")
+                .antMatchers("/device/add-to-basket/**").authenticated()
+                .antMatchers("/basket").authenticated()
+                .antMatchers("/basket-clear").authenticated()
+                .antMatchers("/order").authenticated()
                 .and()
                 .csrf().disable()
                 .formLogin().loginPage("/login")
@@ -57,15 +50,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-
-
- /*   @Bean
-    DaoAuthenticationProvider daoAuthenticationProvider(){
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-        daoAuthenticationProvider.setUserDetailsService(userPrincipalDetaillsService);
-        return daoAuthenticationProvider;
-    }*/
 
     @Bean
     PasswordEncoder passwordEncoder(){

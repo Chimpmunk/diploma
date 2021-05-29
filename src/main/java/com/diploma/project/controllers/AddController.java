@@ -13,10 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.UUID;
 
 
 @Controller
@@ -34,8 +30,8 @@ public class AddController {
 
     @PostMapping("/add")
     public String addPost(@RequestParam String name, @RequestParam String devModel, @RequestParam("file") MultipartFile file,
-                          @RequestParam String characteristics, @RequestParam String price, Model model) throws IOException {
-        if(name!=null && devModel!=null && file!=null && characteristics!=null && price!=null){
+                          @RequestParam String characteristics, @RequestParam double price, Model model) throws IOException {
+        if(name!=null && devModel!=null && file!=null && characteristics!=null){
             Device dev = new Device(name,devModel,characteristics,price);
             File uploadDir = new File(uploadPath);
             if(!uploadDir.exists()){

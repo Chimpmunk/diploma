@@ -22,7 +22,6 @@ public class RegisterController {
 
     @GetMapping("/registration")
     public String reg(Model model){
-        model.addAttribute("txt","");
         return "registration";
     }
 

@@ -24,6 +24,9 @@
 
         <img th:src="'/img/'+${d.image}" th:alt="${d.name}+' '+${d.devModel}+' image'">
         <h3 th:text="'Цена: '+${d.price}+ '&#8372'"/>
+        <form sec:authorize="isAuthenticated()" th:action="'/device/add-to-basket/'+${d.id}" method="get">
+            <button type="submit" class="btn btn-success">add to basket</button>
+        </form>
         <p th:text="${d.characteristics}"/>
 
         <form sec:authorize="hasRole('ROLE_ADMIN')" th:action="'/device/delete/'+${d.id}" method="get">

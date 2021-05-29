@@ -18,7 +18,10 @@
             <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
         </div>
     </form>
-    <div class="m-2 col-sm-">basket</div>
+
+    <a sec:authorize="isAuthenticated()" href="/basket">
+        basket
+    </a>
     <div class="m-2 col-sm-">compare</div>
     <div sec:authorize="hasRole('ROLE_ADMIN')" class="m-2 col-sm-"><a href="/add">Добавить товар</a></div>
     <a sec:authorize="isAuthenticated()" href="/profile">

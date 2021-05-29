@@ -16,9 +16,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model) {
-
         Iterable<Device> devices = deviceRepo.findAll();
-
         model.addAttribute("devices", devices);
         return "home";
     }

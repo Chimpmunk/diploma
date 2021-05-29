@@ -1,9 +1,7 @@
 package com.diploma.project.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 public class Device {
@@ -20,21 +18,21 @@ public class Device {
 
     private String characteristics;
 
-    private String price;
+    private double price;
     public Device(){};
 
-    public Device(String name, String devModel, String characteristics, String price){
+    public Device(String name, String devModel, String characteristics, double price){
         this.name=name;
         this.devModel = devModel;
         this.characteristics=characteristics;
         this.price=price;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String rice) {
+    public void setPrice(double rice) {
         this.price = rice;
     }
 
@@ -77,4 +75,6 @@ public class Device {
     public void setCharacteristics(String characteristics) {
         this.characteristics = characteristics;
     }
+
+
 }

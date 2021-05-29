@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SHop</title>
+    <link rel="stylesheet" href="/static/style/rating.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -16,20 +17,19 @@
 
 <header th:insert="blocks/header :: header"></header>
 
-
+<div class="d-flex p-2 justify-content-around">
     <div class="d-flex p-2 justify-content-around">
-        <div th:each="el : ${devices}" class="mt-2">
-            <h3 th:text="${el.name}"/>
-            <h3 th:text="${el.devModel}"/>
-            <img th:src="'/img/'+${el.image}" th:alt="${el.name}+' '+${el.devModel}+' image'">
-            <h3 th:text="'Цена: '+${el.price}+ '&#8372'"/>
-            <p th:text="${el.characteristics}"/>
-            <a th:href="'/device/'+ ${el.id}">подробнее</a>
+        <div th:each="item : ${items}" class="mt-2">
+            <h6 th:text="${item.device.name}"/>
+            <h6 th:text="${item.device.devModel}"/>
+            <h6 th:text="${item.device.price}"/>
         </div>
+        <h6 th:text="${total}"/>
     </div>
-
-<footer>
-
-</footer>
+</div>
+</div>
+<form action="/order" method="post">
+    <button class="btn btn-success" type="submit">buy</button>
+</form>
 </body>
 </html>
