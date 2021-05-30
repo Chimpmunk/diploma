@@ -1,5 +1,6 @@
 package com.diploma.project.repo;
 
+import com.diploma.project.models.Category;
 import com.diploma.project.models.Device;
 import org.springframework.data.repository.CrudRepository;
 
@@ -10,5 +11,6 @@ public interface DeviceRepo extends CrudRepository<Device, Long> {
     public Device findOneById(long id);
     public List<Device> findByNameContaining (String name);
     public List<Device> findByDevModelContaining (String devModel);
-    public List<Device> findByCharacteristics (String characterstics);
+    public List<Device> findByCharacteristicsContaining (String characterstics);
+    public List<Device> findByCategory (Category category);
 }

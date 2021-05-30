@@ -1,5 +1,6 @@
 package com.diploma.project.controllers;
 
+import com.diploma.project.models.Category;
 import com.diploma.project.models.Device;
 import com.diploma.project.repo.DeviceRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,25 @@ public class AddController {
     }
 
     @PostMapping("/add")
-    public String addPost(@RequestParam String name, @RequestParam String devModel, @RequestParam("file") MultipartFile file,
+    public String addPost(@RequestParam String name,@RequestParam String categoryString, @RequestParam String devModel, @RequestParam("file") MultipartFile file,
                           @RequestParam String characteristics, @RequestParam double price, Model model) throws IOException {
         if(name!=null && devModel!=null && file!=null && characteristics!=null){
-            Device dev = new Device(name,devModel,characteristics,price);
+            Category category;
+            switch (categoryString){
+                case "SMARTPHONE":
+                    category = Category.SMARTPHONE;
+                    break;
+                case "LAPTOP":
+                    category = Category.LAPTOP;
+                    break;
+                case "TABLET":
+                    category=Category.TABLET;
+                    break;
+                default:
+                    category = Category.SMARTPHONE;
+                    break;
+            }
+            Device dev = new Device(name,devModel,characteristics,price, category);
             File uploadDir = new File(uploadPath);
             if(!uploadDir.exists()){
                 uploadDir.mkdir();

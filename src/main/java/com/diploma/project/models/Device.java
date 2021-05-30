@@ -1,7 +1,6 @@
 package com.diploma.project.models;
 
 import javax.persistence.*;
-import java.util.Collection;
 
 @Entity
 public class Device {
@@ -16,17 +15,31 @@ public class Device {
 
     private String devModel;
 
+    @Column(columnDefinition="LONGTEXT")
     private String characteristics;
+
+    private Category category;
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     private double price;
     public Device(){};
 
-    public Device(String name, String devModel, String characteristics, double price){
+    public Device(String name, String devModel, String characteristics, double price, Category category){
         this.name=name;
         this.devModel = devModel;
         this.characteristics=characteristics;
         this.price=price;
+        this.category = category;
     }
+
+
 
     public double getPrice() {
         return price;

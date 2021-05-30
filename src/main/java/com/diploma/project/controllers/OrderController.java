@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -24,17 +25,7 @@ public class OrderController {
     @PostMapping("/order")
     public String getOrder(@AuthenticationPrincipal UserPrincipal user, @RequestParam List<Integer> quantity, Model model){
         Basket b = basketRepo.findByUser(user.getUser());
-        /*List<Device> orderList = new LinkedList<Device>();
-        for (int i=0;i<quantity.size();i++){
-            Device device = b.getItems().get(i);
-            for(int j=0;j<quantity.get(i);j++){
-                orderList.add(device);
-            }
-        }
-        ClientOrder order = new ClientOrder(user.getUser(),orderList);
-        orderRepo.save(order);
-        model.addAttribute("items", b.getItems());
-        basketRepo.delete(b);*/
+
         Set<Device> devs = b.getItems();
         Set<Devices> orderSet = new HashSet<Devices>();
         int i =devs.size()-1;
@@ -43,8 +34,10 @@ public class OrderController {
             i--;
         }
         ClientOrder order = new ClientOrder(user.getUser(),orderSet);
-        model.addAttribute("items", order.getItems());
-        model.addAttribute("total",order.getTotal());
+        List<ClientOrder> orders = new LinkedList<ClientOrder>();
+        orders.add(order);
+        Iterable<ClientOrder> o = orders;
+        model.addAttribute("order", o);
         clientOrderRepo.save(order);
         basketRepo.delete(b);
         return "order";

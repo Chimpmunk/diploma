@@ -57,11 +57,6 @@ public class BasketController {
 
     @GetMapping("/basket-clear")
     public String clearBasket(@AuthenticationPrincipal UserPrincipal user, Model model){
-        /*Basket basket= basketRepo.findByUser(user.getUser());
-        basketRepo.delete(basket);
-        basket= new Basket();
-        basket.setUser(user.getUser());
-        basketRepo.save(basket);*/
         Basket basket= basketRepo.findByUser(user.getUser());
         basket.setItems(new HashSet<Device>());
         basketRepo.save(basket);

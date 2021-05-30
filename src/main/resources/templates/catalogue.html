@@ -12,30 +12,38 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 
 <header th:insert="blocks/header :: header"></header>
 
+<div id="filters" class="flex-column col-5">
 
+</div>
+
+<div class="d-flex flex-column col-3 p-2 justify-content-around">
+
+
+</div>
 <div class="container">
 
     <div class="row row-cols-4">
 
-            <div  th:each="el : ${devices}" class=" mt-2 col">
-                <div class="card h-100 ">
-                    <div class="imageContainer">
-                        <img th:src="'/img/'+${el.image}" class="card-img-top" th:alt="${el.name}+' '+${el.devModel}+' image'">
-                    </div>
-
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${el.name}+' '+${el.devModel}"/>
-                        <p class="card-text"th:text="'Цена: '+${el.price}+ '&#8372'"/>
-                        <a th:href="'/device/'+ ${el.id}"class="btn btn-primary">подробнее</a>
-                    </div>
+        <div  th:each="el : ${devices}" class=" mt-2 col">
+            <div class="card h-100 ">
+                <div class="imageContainer">
+                    <img th:src="'/img/'+${el.image}" class="card-img-top" th:alt="${el.name}+' '+${el.devModel}+' image'">
                 </div>
 
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${el.name}+' '+${el.devModel}"/>
+                    <p class="card-text"th:text="'Цена: '+${el.price}+ '&#8372'"/>
+                    <a th:href="'/device/'+ ${el.id}"class="btn btn-primary">подробнее</a>
+                </div>
             </div>
+
+        </div>
     </div>
 
 </div>
